@@ -1,4 +1,3 @@
-
 このリポジトリは、Kaggle コンペ「NFL Draft Prediction」に関連するコード、ノートブック、提出ファイルをまとめたものです。
 
 ---
@@ -10,51 +9,51 @@
 
 ```
 nfl-draft-prediction/
-├── data/                  # Kaggle 公式データ（.gitignoreで除外）
-│   ├── train.csv
-│   ├── test.csv
-│   └── sample_submission.csv
-├── notebooks/             # 分析・実験用のノートブック
-│   ├── 01_eda.ipynb
-│   ├── 02_preprocessing.ipynb
-│   ├── 03_model_baseline.ipynb
-│   ├── 04_lgb_optuna.ipynb
-│   └── 05_stack_ensemble.ipynb
-├── src/                   # 再利用可能なスクリプト・関数類
-│   ├── features.py
-│   ├── model.py
-│   ├── utils.py
-│   └── config.py
-├── submissions/           # 提出ファイルの保存場所
-│   ├── baseline.csv
-│   ├── lgb_optuna.csv
-│   └── ensemble.csv
-├── models/                # 学習済みモデル（.gitignoreで除外）
-│   ├── model_lgb.pkl
-│   └── encoder.pkl
-├── output/                # グラフや分析結果の出力（任意）
-│   ├── feature_importance.png
-│   └── correlation_matrix.png
-├── README.md              # 本ファイル
-├── requirements.txt       # 使用ライブラリ一覧（pip freeze 出力）
-├── .gitignore             # 除外対象の定義（data/, models/など）
-└── LICENSE                # ライセンス（MITなど、※現在は未定）
+├── .venv/ # 仮想環境（Git 除外推奨）
+├── data/ # Kaggle 公式データ（.gitignore で除外）
+│ ├── train.csv
+│ ├── test.csv
+│ └── sample_submission.csv
+├── models/ # 保存済みモデル（.gitignore で除外）
+│ └── .pkl など
+├── notebooks/ # 分析・実験用ノートブック
+│ ├── 00_baseline.ipynb
+│ ├── 01_preprocessing.ipynb
+│ └── catboost_info/ # CatBoost の学習ログ（自動生成）
+│ ├── catboost_training.json
+│ └── learn/
+│ ├── events.out.tfevents
+│ ├── learn_error.tsv
+│ └── time_left.tsv
+├── output/ # グラフなどの出力（任意・.gitignore 推奨）
+│ └── .png 等
+├── src/ # 再利用スクリプト
+│ ├── features.py
+│ ├── model.py
+│ └── pycache/ # Python キャッシュ（Git 除外）
+│ ├── features.cpython-.pyc
+│ └── model.cpython-.pyc
+├── submissions/ # 提出ファイルの保存場所
+│ └── *.csv
+├── .gitignore # 除外定義（data/, models/, pycache/ など）
+├── README.md # 本ファイル
+├── README.ipynb # Markdown 編集用の補助ノートブック（任意）
+└── requirements.txt # 使用ライブラリ一覧
 ```
 
 </details>
-
 
 ---
 
 ## 📓 ノートブック命名ルール
 
-| ファイル名                  | 内容                                      |
-|---------------------------|-------------------------------------------|
-| `01_eda.ipynb`            | 初期の可視化と仮説立案                     |
-| `02_preprocessing.ipynb`  | 欠損値補完、カテゴリ変数の処理など         |
-| `03_model_baseline.ipynb` | ランダムフォレストなどによる初期モデル     |
-| `04_lgb_optuna.ipynb`     | LightGBM + Optuna によるチューニング       |
-| `05_stack_ensemble.ipynb` | スタッキングやアンサンブルの実験           |
+| ファイル名                | 内容                                   |
+| ------------------------- | -------------------------------------- |
+| `01_eda.ipynb`            | 初期の可視化と仮説立案                 |
+| `02_preprocessing.ipynb`  | 欠損値補完、カテゴリ変数の処理など     |
+| `03_model_baseline.ipynb` | ランダムフォレストなどによる初期モデル |
+| `04_lgb_optuna.ipynb`     | LightGBM + Optuna によるチューニング   |
+| `05_stack_ensemble.ipynb` | スタッキングやアンサンブルの実験       |
 
 ---
 
@@ -71,17 +70,19 @@ nfl-draft-prediction/
 ## 🚀 使用方法
 
 1. 本リポジトリをクローンする：
-    ```bash
-    git clone https://github.com/yourname/nfl-draft-prediction.git
-    cd nfl-draft-prediction
-    ```
+
+   ```bash
+   git clone https://github.com/yourname/nfl-draft-prediction.git
+   cd nfl-draft-prediction
+   ```
 
 2. [Kaggle](https://www.kaggle.com/) の公式データを `data/` フォルダに配置する
 
 3. ライブラリをインストールする：
-    ```bash
-    pip install -r requirements.txt
-    ```
+
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 4. `notebooks/` 以下のファイルを上から順に実行する
 
