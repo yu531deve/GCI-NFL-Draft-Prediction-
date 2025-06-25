@@ -1,5 +1,39 @@
 このリポジトリは、Kaggle コンペ「NFL Draft Prediction」に関連するコード、ノートブック、提出ファイルをまとめたものです。
 
+/  
+---
+
+## 📁 notebook 目次
+
+# 00_baseline(0.80792).ipynb
+ベースラインモデル。
+・欠損値補完はすべて平均値
+・特徴量にBMIを追加
+・モデルはランダムフォレスト
+
+
+# 01_0620_preprocessing.ipynb
+主にEDAを行ったファイル
+・欠損値を補完せずに削除した
+・スコアは大幅に下がった
+
+# 02_0621_notebook(0.79804).ipynb
+ベースラインモデルに新たな特徴量を加えたモデル
+・特徴量としてSprint_40yd_missing，Sprint_40yd_and_Bench_missingを追加
+・AUCは伸びたがpublicの方は下がってしまった。
+
+
+# 03_0624_notebook().ipynb
+
+
+# 04
+
+
+# 05
+
+
+
+
 ---
 
 ## 📁 プロジェクト構成
