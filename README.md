@@ -55,7 +55,43 @@
 ・Valid AUC：0.8254
 
 </details>
+<details> <summary><strong>04_0626_notebook (未提出)</strong></summary>
+📊 特徴量の精査とLightGBMの最適化
 
+・03_0624で構築したモデルをベースに改良
+・Feature Importanceに基づき、情報利得の小さい列（Player_Type, Position_Typeなど）を一時削除
+・Age_missingとPositionは再導入した方が安定することを確認
+・Sprint_40ydを筆頭に、有効な身体能力系特徴量を厳選
+・不要特徴量の除去と木の深さの調整により、"No further splits" 警告を抑制
+
+⚙️ モデル構成  
+・LightGBM（max_depth=4, num_leaves=12, 正則化強化）  
+・5-fold CV + EarlyStopping(30)  
+・AUC差が 0.05 以下になるよう精密に調整  
+
+📈 評価結果（最終）  
+・Average Train AUC：0.8693  
+・Average Validation AUC：0.8216  
+・差分：0.0477（過学習抑制に成功）  
+
+✅ 最終モデル構成（提出候補）：
+```python
+model = LGBMClassifier(
+    max_depth=4,
+    num_leaves=12,
+    min_child_samples=30,
+    min_split_gain=0.0,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    reg_alpha=3.0,
+    reg_lambda=2.0,
+    learning_rate=0.05,
+    n_estimators=500,
+    random_state=42
+)
+```
+
+</details>
 
 ---
 
