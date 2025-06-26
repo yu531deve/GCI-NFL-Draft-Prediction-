@@ -55,7 +55,7 @@
 ・Valid AUC：0.8254
 
 </details>
-<details> <summary><strong>04_0626_notebook (未提出)</strong></summary>
+<details> <summary><strong>04_0626_notebook (0.82782)</strong></summary>
 📊 特徴量の精査とLightGBMの最適化
 
 ・03_0624で構築したモデルをベースに改良
