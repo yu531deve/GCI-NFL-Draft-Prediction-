@@ -2,7 +2,6 @@
 
 ## /
 
-
 ## 📁 notebook 目次
 
 <details>
@@ -39,9 +38,9 @@
 🔧 データ前処理・特徴量エンジニアリングまとめ  
 ・Id 削除  
 ・Drafted を y に分離  
-・Age 欠損は 2軸（filled, missing）で処理  
+・Age 欠損は 2 軸（filled, missing）で処理  
 ・数値は中央値補完  
-・カテゴリはLabel Encoding  
+・カテゴリは Label Encoding  
 ・BMI 導入  
 ・Player_Type に Target Encoding  
 ・Age_missing, Player_Type, Position_Type, School を削除
@@ -58,23 +57,24 @@
 <details> <summary><strong>04_0626_notebook (0.82782)</strong></summary>
 📊 特徴量の精査とLightGBMの最適化
 
-・03_0624で構築したモデルをベースに改良
-・Feature Importanceに基づき、情報利得の小さい列（Player_Type, Position_Typeなど）を一時削除
-・Age_missingとPositionは再導入した方が安定することを確認
-・Sprint_40ydを筆頭に、有効な身体能力系特徴量を厳選
+・03_0624 で構築したモデルをベースに改良
+・Feature Importance に基づき、情報利得の小さい列（Player_Type, Position_Type など）を一時削除
+・Age_missing と Position は再導入した方が安定することを確認
+・Sprint_40yd を筆頭に、有効な身体能力系特徴量を厳選
 ・不要特徴量の除去と木の深さの調整により、"No further splits" 警告を抑制
 
 ⚙️ モデル構成  
 ・LightGBM（max_depth=4, num_leaves=12, 正則化強化）  
 ・5-fold CV + EarlyStopping(30)  
-・AUC差が 0.05 以下になるよう精密に調整  
+・AUC 差が 0.05 以下になるよう精密に調整
 
 📈 評価結果（最終）  
 ・Average Train AUC：0.8693  
 ・Average Validation AUC：0.8216  
-・差分：0.0477（過学習抑制に成功）  
+・差分：0.0477（過学習抑制に成功）
 
 ✅ 最終モデル構成（提出候補）：
+
 ```python
 model = LGBMClassifier(
     max_depth=4,
@@ -92,6 +92,42 @@ model = LGBMClassifier(
 ```
 
 </details>
+<details> <summary><strong>05_0626_notebook (0.83582)</strong></summary>
+📊 ポジション情報の強化とOptunaによる自動チューニング
+
+・Position 列を再導入し、ドラフト率に基づく Target Encoding を実施  
+・さらにドメイン知識に基づいて Position をグループ化（例：K/P/LS → Specialist）  
+・グループごとの Drafted 率は fold-safe な方式で Target Encoding（リーク防止）  
+・Player_Type, School などは削除したままで精度重視  
+・Optuna を用いて LightGBM のハイパーパラメータを自動最適化（50 試行）
+
+⚙️ モデル構成  
+・LightGBM（Optuna による自動探索パラメータ）  
+・5-fold CV + EarlyStopping(30)  
+・Validation AUC を最大化するようチューニング
+
+📈 評価結果（最終）  
+・Average Train AUC：0.8972  
+・Average Validation AUC：0.8303  
+・差分：0.0669（やや過学習傾向だが許容範囲）
+
+✅ 最終モデル構成（提出候補）：
+
+```python
+model = LGBMClassifier(
+    max_depth=5,
+    num_leaves=47,
+    min_child_samples=59,
+    learning_rate=0.06596,
+    subsample=0.6411,
+    colsample_bytree=0.7170,
+    reg_alpha=0.4877,
+    reg_lambda=7.7297,
+    n_estimators=700,
+    random_state=42
+)
+
+
 
 ---
 
@@ -101,6 +137,7 @@ model = LGBMClassifier(
 <summary>▼ クリックして展開</summary>
 
 ```
+
 nfl-draft-prediction/
 ├── .venv/ # 仮想環境（Git 除外推奨）
 ├── data/ # Kaggle 公式データ（.gitignore で除外）
@@ -127,12 +164,13 @@ nfl-draft-prediction/
 │ ├── features.cpython-.pyc
 │ └── model.cpython-.pyc
 ├── submissions/ # 提出ファイルの保存場所
-│ └── *.csv
+│ └── \*.csv
 ├── .gitignore # 除外定義（data/, models/, pycache/ など）
 ├── README.md # 本ファイル
 ├── README.ipynb # Markdown 編集用の補助ノートブック（任意）
 └── requirements.txt # 使用ライブラリ一覧
-```
+
+````
 
 </details>
 
@@ -167,7 +205,7 @@ nfl-draft-prediction/
    ```bash
    git clone https://github.com/yourname/nfl-draft-prediction.git
    cd nfl-draft-prediction
-   ```
+````
 
 2. [Kaggle](https://www.kaggle.com/) の公式データを `data/` フォルダに配置する
 
