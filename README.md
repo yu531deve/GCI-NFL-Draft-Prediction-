@@ -2,75 +2,60 @@
 
 ## /
 
+
 ## 📁 notebook 目次
 
-# 00_baseline(0.80792).ipynb
+<details>
+<summary><strong>00_baseline (0.80792).ipynb</strong></summary>
 
-ベースラインモデル。
-・欠損値補完はすべて平均値
-・特徴量に BMI を追加
+ベースラインモデル。  
+・欠損値補完はすべて平均値  
+・特徴量に BMI を追加  
 ・モデルはランダムフォレスト
 
-# 01_0620_preprocessing.ipynb
+</details>
 
-主に EDA を行ったファイル
-・欠損値を補完せずに削除した
+<details>
+<summary><strong>01_0620_preprocessing(未提出).ipynb</strong></summary>
+
+主に EDA を行ったファイル  
+・欠損値を補完せずに削除した  
 ・スコアは大幅に下がった
 
-# 02_0621_notebook(0.79804).ipynb
+</details>
 
-ベースラインモデルに新たな特徴量を加えたモデル
-・特徴量として Sprint_40yd_missing，Sprint_40yd_and_Bench_missing を追加
-・AUC は伸びたが public の方は下がってしまった。
+<details>
+<summary><strong>02_0621_notebook (0.79804).ipynb</strong></summary>
 
-# 03_0624_notebook().ipynb
+ベースラインモデルに新たな特徴量を加えたモデル  
+・Sprint_40yd_missing，Sprint_40yd_and_Bench_missing を追加  
+・AUC は伸びたが public の方は下がってしまった
 
-🔧 データ前処理・特徴量エンジニアリングまとめ
-Id 列を削除（識別子のため）
+</details>
 
-目的変数 Drafted を X から分離して y に格納
+<details>
+<summary><strong>03_0624_notebook(未提出)</strong></summary>
 
-Age 欠損に対して以下の 2 軸で処理：
+🔧 データ前処理・特徴量エンジニアリングまとめ  
+・Id 削除  
+・Drafted を y に分離  
+・Age 欠損は 2軸（filled, missing）で処理  
+・数値は中央値補完  
+・カテゴリはLabel Encoding  
+・BMI 導入  
+・Player_Type に Target Encoding  
+・Age_missing, Player_Type, Position_Type, School を削除
 
-Age_filled（-1 で補完）
+⚙️ モデル構築  
+・LightGBM（過学習対策多数）  
+・5-fold CV + AUC + EarlyStopping(50)
 
-Age_missing（欠損フラグ）
+📈 評価結果（例）  
+・Train AUC：0.9166  
+・Valid AUC：0.8254
 
-その他の数値列は中央値で補完
+</details>
 
-School, Player_Type, Position_Type, Position は Label Encoding
-
-BMI を新規特徴量として導入（Weight / (Height^2)）
-
-Player_Type に対して Target Encoding を適用
-
-以下の特徴量を削除（重要度が低い・過学習の要因と判断）：
-
-Age_missing, Player_Type, Position_Type, School
-
-⚙️ モデル構築・評価
-モデル：LightGBM（以下の過学習対策を適用）
-
-木の深さ制限（max_depth=3, num_leaves=7）
-
-学習率減少（learning_rate=0.05）と木数増加（n_estimators=500）
-
-L1/L2 正則化（reg_alpha=2.0, reg_lambda=2.0）
-
-サブサンプリング（subsample=0.8, colsample_bytree=0.8）
-
-スプリット閾値追加（min_split_gain=0.1）
-
-評価方法：KFold（5 分割） + AUC スコア + EarlyStopping（50 ラウンド）
-
-📈 現在の評価結果（例）
-平均 Train AUC：0.9166
-
-平均 Validation AUC：0.8254
-
-# 04
-
-# 05
 
 ---
 
