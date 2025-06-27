@@ -240,6 +240,47 @@ model = LGBMClassifier(
 ```
 
 </details>
+<details> <summary><strong>09_0627_notebook (提出中)</strong></summary>
+📊 School ドメイン知識活用によるスコア向上
+
+・08 モデル (RSA 系 + ASI + Optuna 最適化) をベースに、School（大学）特徴量の活用に着手
+・過去のドラフト結果（訓練データ）から 各大学の Drafted Count（指名数）・Drafted Rate（指名率） を集計し特徴量化
+・Top School（指名数上位校か否か）のフラグも追加（注目度 proxy）
+・fold-safe Target Encoding によりリーク防止を確保しつつ情報量を最大活用
+・RSA 系特徴量、ASI、Age_filled、Position_encoded 等の有効特徴量は維持
+
+⚙️ モデル構成
+・LightGBM（RSA 系 + ASI + School 特徴量 + Optuna 最適パラメータ）
+・5-Fold CV + EarlyStopping(30)
+・Validation AUC 最大化 + 安定性確保
+
+📈 評価結果（最終）
+・Average Train AUC：0.8937
+・Average Validation AUC：0.8384
+・差分：0.0553（安定した汎化性能で過去最高水準、提出候補レベル）
+
+✅ 最終モデル構成（提出候補）
+
+```
+model = LGBMClassifier(
+    max_depth=6,
+    num_leaves=10,
+    min_child_samples=38,
+    reg_alpha=8.18,
+    reg_lambda=8.07,
+    learning_rate=0.0442,
+    n_estimators=1000,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42
+)
+
+```
+
+✅ School 特徴量導入で Validation AUC を 0.838 台に向上
+✅ さらなる微調整・Feature Selection・Optuna 再実行で 0.840 超えを狙う準備段階
+
+</details>
 
 ---
 
