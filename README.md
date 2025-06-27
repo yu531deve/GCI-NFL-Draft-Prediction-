@@ -239,6 +239,8 @@ model = LGBMClassifier(
 
 ```
 
+</details>
+
 ---
 
 ## 📁 プロジェクト構成
