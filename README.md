@@ -1,7 +1,5 @@
 このリポジトリは、Kaggle コンペ「NFL Draft Prediction」に関連するコード、ノートブック、提出ファイルをまとめたものです。
 
-## /
-
 ## 📁 notebook 目次
 
 <details>
@@ -165,6 +163,13 @@ model = LGBMClassifier(
 ```
 
 </details>
+
+```
+03（前処理 + 特徴量案）
+  └─▶ 04（特徴量削除 + 精緻なLightGBM）
+        └─▶ 05（Position再導入 + Optuna）
+              └─▶ 06（BMI除去 + 過学習抑制）
+```
 
 ---
 
