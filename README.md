@@ -126,8 +126,45 @@ model = LGBMClassifier(
     n_estimators=700,
     random_state=42
 )
+```
 
+</details>
 
+<details> <summary><strong>06_0627_notebook (0.8327)</strong></summary> 📊 BMIを除外した構成でのOptuna最適化と過学習抑制の両立
+・BMIを削除し、過学習を抑えた構成でのモデル最適化を試行
+・Position はグループ化＋Target Encodingを維持（05モデルと同様）
+・Player_Type, School など精度に寄与しない列は引き続き除去
+・Age は2軸（Age_filled, Age_missing）で処理し保持
+・Optuna（50試行）により LightGBM のハイパーパラメータを自動探索
+
+⚙️ モデル構成
+・LightGBM（BMI 除外 + Optuna による最適パラメータ）
+・5-fold CV + EarlyStopping(30)
+・Validation AUC を最大化するようチューニング
+
+📈 評価結果（最終）
+・Average Train AUC：0.8803
+・Average Validation AUC：0.8327
+・差分：0.0476（05 モデルより過学習が抑制され、精度も向上）
+
+✅ 最終モデル構成（提出候補）：
+
+```python
+model = LGBMClassifier(
+    max_depth=4,
+    num_leaves=12,
+    min_child_samples=98,
+    learning_rate=0.07784724324991651,
+    n_estimators=700,
+    subsample=0.5050379002287039,
+    colsample_bytree=0.50027338347916,
+    reg_alpha=3.037811473368862,
+    reg_lambda=3.294160938150066,
+    random_state=42
+)
+```
+
+</details>
 
 ---
 
@@ -170,7 +207,7 @@ nfl-draft-prediction/
 ├── README.ipynb # Markdown 編集用の補助ノートブック（任意）
 └── requirements.txt # 使用ライブラリ一覧
 
-````
+```
 
 </details>
 
@@ -205,6 +242,8 @@ nfl-draft-prediction/
    ```bash
    git clone https://github.com/yourname/nfl-draft-prediction.git
    cd nfl-draft-prediction
+   ```
+
 ````
 
 2. [Kaggle](https://www.kaggle.com/) の公式データを `data/` フォルダに配置する
@@ -224,3 +263,4 @@ nfl-draft-prediction/
 現在、このプロジェクトは他者コードの参照を含む可能性があるため、**明示的なライセンスは設定していません**。再利用の際は該当コードの出典とライセンスをご確認ください。
 
 ---
+````
