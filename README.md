@@ -92,7 +92,7 @@ model = LGBMClassifier(
 ```
 
 </details>
-<details> <summary><strong>05_0626_notebook (0.83582)</strong></summary>
+<details> <summary><strong>05_0626_notebook (0.82769)</strong></summary>
 📊 ポジション情報の強化とOptunaによる自動チューニング
 
 ・Position 列を再導入し、ドラフト率に基づく Target Encoding を実施  
