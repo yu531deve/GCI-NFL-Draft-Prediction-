@@ -281,8 +281,41 @@ model = LGBMClassifier(
 ✅ さらなる微調整・Feature Selection・Optuna 再実行で 0.840 超えを狙う準備段階
 
 </details>
+<details> <summary><strong>10_0627_notebook (提出予定)</strong></summary>
+📊 Optuna による最終 LightGBM 最適化・スコア最大化モデル
 
----
+・09 モデルの特徴量構成（RSA 系 + ASI + School 特徴量）を維持
+・Optuna (100 trials) により max_depth, num_leaves, min_child_samples, reg_alpha, reg_lambda, learning_rate を最適化
+・max_depth=3, learning_rate=0.087 と浅め・速めの収束で高精度化＆汎化性能向上
+・スコアはこれまでの最高値を記録
+
+⚙️ モデル構成
+・LightGBM（Optuna 最適化済）
+・5-Fold CV + EarlyStopping(30)
+・Validation AUC を最大化する設定
+
+📈 評価結果（最終）
+・Average Train AUC：0.89〜0.90（予定）
+・Average Validation AUC：0.85 前後（予定）
+
+✅ 最適化結果（Best Params）
+
+```python
+model = LGBMClassifier(
+    max_depth=3,
+    num_leaves=18,
+    min_child_samples=25,
+    reg_alpha=1.17,
+    reg_lambda=4.84,
+    learning_rate=0.087,
+    n_estimators=1200,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42
+)
+```
+
+## </details>
 
 ## 📁 プロジェクト構成
 
