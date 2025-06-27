@@ -203,7 +203,7 @@ model = LGBMClassifier(
 
 </details>
 
-<details> <summary><strong>08_0627_notebook (提出中)</strong></summary>
+<details> <summary><strong>08_0627_notebook (0.83414)</strong></summary>
 📊 Optuna による LightGBM ハイパーパラメータ自動最適化（RSA系・ASI投入状態）
 
 ・07 で構築した RSA 系 + ASI 特徴量構成を維持
