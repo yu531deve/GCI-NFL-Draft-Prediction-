@@ -130,7 +130,7 @@ model = LGBMClassifier(
 
 </details>
 
-<details> <summary><strong>06_0627_notebook (0.8327)</strong></summary> 📊 BMIを除外した構成でのOptuna最適化と過学習抑制の両立
+<details> <summary><strong>06_0627_notebook (提出中)</strong></summary> 📊 BMIを除外した構成でのOptuna最適化と過学習抑制の両立
 ・BMIを削除し、過学習を抑えた構成でのモデル最適化を試行
 ・Position はグループ化＋Target Encodingを維持（05モデルと同様）
 ・Player_Type, School など精度に寄与しない列は引き続き除去
