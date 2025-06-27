@@ -164,11 +164,79 @@ model = LGBMClassifier(
 
 </details>
 
+<details> <summary><strong>07_0627_notebook (未提出)</strong></summary>
+📊 RSA系特徴量・ASI追加と不要特徴量削除による精度向上
+
+・RSA 系特徴量（RSA_Sprint_40yd など 5 種）と ASI (Athletic Score Index) を新規作成し投入
+・不要な元特徴量（Sprint_40yd, Vertical_Jump 等）は RSA 系へ置き換え、多重共線性を排除
+・BMI はスコアが低下したため除外、Weight・Height を復活し情報量を確保
+・Position, Position_group の Target Encoding を fold-safe に実施（リーク防止）
+・Age は Age_filled のみ採用、Age_missing は情報量が少ないため削除
+
+⚙️ モデル構成
+・LightGBM（RSA 系 + ASI + 過剰特徴量削除）
+・5-Fold CV + EarlyStopping(30)
+・Validation AUC を最大化する構成で調整
+
+📈 評価結果（最終）
+・Average Train AUC：0.8755
+・Average Validation AUC：0.8349
+・差分：0.0406（安定した汎化性能で提出候補レベル）
+
+✅ 最終モデル構成（提出候補）
+
 ```
-03（前処理 + 特徴量案）
-  └─▶ 04（特徴量削除 + 精緻なLightGBM）
-        └─▶ 05（Position再導入 + Optuna）
-              └─▶ 06（BMI除去 + 過学習抑制）
+model = LGBMClassifier(
+    max_depth=5,
+    num_leaves=10,
+    min_child_samples=40,
+    reg_alpha=3.0,
+    reg_lambda=3.0,
+    learning_rate=0.02,
+    n_estimators=900,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42
+)
+
+```
+
+</details>
+
+<details> <summary><strong>08_0627_notebook (提出中)</strong></summary>
+📊 Optuna による LightGBM ハイパーパラメータ自動最適化（RSA系・ASI投入状態）
+
+・07 で構築した RSA 系 + ASI 特徴量構成を維持
+・不要特徴量削除により軽量かつ精度重視のモデル化を完了
+・Optuna (100 試行) による LightGBM ハイパーパラメータ探索を実施
+・max_depth, num_leaves, min_child_samples, reg_alpha, reg_lambda, learning_rate を最適化対象に設定
+
+⚙️ モデル構成
+・LightGBM（RSA 系 + ASI + Optuna 最適パラメータ）
+・5-Fold CV + EarlyStopping(30)
+・Validation AUC 最大化にフォーカスし過学習抑制とスコア向上を両立
+
+📈 評価結果（最終）
+・Average Train AUC：0.8823
+・Average Validation AUC：0.8377
+・差分：0.0446（過去最高水準のスコア、提出準備完了）
+
+✅ 最適化結果（Best Params）
+
+```
+model = LGBMClassifier(
+    max_depth=6,
+    num_leaves=10,
+    min_child_samples=38,
+    reg_alpha=8.18,
+    reg_lambda=8.07,
+    learning_rate=0.0442,
+    n_estimators=1000,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42
+)
+
 ```
 
 ---
