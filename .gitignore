@@ -22,4 +22,5 @@ Thumbs.db
 # 出力ログや画像
 /output/
 *.log
+*.xlsx
 
