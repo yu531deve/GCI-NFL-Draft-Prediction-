@@ -281,7 +281,7 @@ model = LGBMClassifier(
 ✅ さらなる微調整・Feature Selection・Optuna 再実行で 0.840 超えを狙う準備段階
 
 </details>
-<details> <summary><strong>10_0627_notebook (提出中)</strong></summary>
+<details> <summary><strong>10_0627_notebook (0.83668)</strong></summary>
 📊 Optuna による最終 LightGBM 最適化・スコア最大化モデル
 
 ・09 モデルの特徴量構成（RSA 系 + ASI + School 特徴量）を維持
@@ -317,7 +317,7 @@ model = LGBMClassifier(
 
 ## </details>
 
-<details> <summary><strong>11_0628_notebook (提出予定)</strong></summary>
+<details> <summary><strong>11_0628_notebook (0.8208)</strong></summary>
 📊 不要特徴量削除 + Optuna 最適化による最高スコア更新モデル
 
 ・10 モデル（RSA 系 + ASI + School 特徴量 + Optuna）の構成を維持
