@@ -240,7 +240,7 @@ model = LGBMClassifier(
 ```
 
 </details>
-<details> <summary><strong>09_0627_notebook (提出中)</strong></summary>
+<details> <summary><strong>09_0627_notebook (0.84205)</strong></summary>
 📊 School ドメイン知識活用によるスコア向上
 
 ・08 モデル (RSA 系 + ASI + Optuna 最適化) をベースに、School（大学）特徴量の活用に着手
