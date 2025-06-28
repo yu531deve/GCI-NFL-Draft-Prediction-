@@ -281,7 +281,7 @@ model = LGBMClassifier(
 ✅ さらなる微調整・Feature Selection・Optuna 再実行で 0.840 超えを狙う準備段階
 
 </details>
-<details> <summary><strong>10_0627_notebook (提出予定)</strong></summary>
+<details> <summary><strong>10_0627_notebook (提出中)</strong></summary>
 📊 Optuna による最終 LightGBM 最適化・スコア最大化モデル
 
 ・09 モデルの特徴量構成（RSA 系 + ASI + School 特徴量）を維持
@@ -317,6 +317,48 @@ model = LGBMClassifier(
 
 ## </details>
 
+<details> <summary><strong>11_0628_notebook (提出予定)</strong></summary>
+📊 不要特徴量削除 + Optuna 最適化による最高スコア更新モデル
+
+・10 モデル（RSA 系 + ASI + School 特徴量 + Optuna）の構成を維持
+・School_Top, RSA_Agility_3cone, RSA_Shuttle, RSA_Bench_Press_Reps, Weight_lbs, Age_missing, RSA_Vertical_Jump, Broad_Jump, Height の 不要特徴量を削除
+・不要特徴量削除後に Optuna 再実行 (50 trials) でハイパーパラメータを最適化
+・過学習を抑制しながらスコア向上に成功、これまでで最高精度・汎化性能を記録
+
+⚙️ モデル構成
+
+・LightGBM（RSA 系 + ASI + School 特徴量 + Optuna 最適パラメータ）
+・5-Fold CV + EarlyStopping(30)
+・Validation AUC 最大化 + 過学習抑制 + 精度向上の両立
+
+📈 評価結果（最終）
+
+・Average Train AUC：0.9434
+・Average Validation AUC：0.8524
+・差分：0.0910（適度な差で汎化性能も担保、過去最高スコア）
+
+✅ 最終モデル構成（提出モデル）
+
+```python
+model = LGBMClassifier(
+    max_depth=5,
+    num_leaves=13,
+    min_child_samples=14,
+    reg_alpha=0.070,
+    reg_lambda=0.034,
+    learning_rate=0.100,
+    n_estimators=1000,
+    subsample=0.820,
+    colsample_bytree=0.665,
+    random_state=42
+)
+```
+
+✅ 不要特徴量削除 + Optuna により Validation AUC を 0.852 へ大幅改善
+✅ これまでの最高スコアで提出候補として確定
+✅ 次は SHAP 解釈・アンサンブル化による安定性強化・スコア微増 段階へ移行可能
+
+</details>
 ## 📁 プロジェクト構成
 
 <details>
