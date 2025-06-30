@@ -359,9 +359,70 @@ model = LGBMClassifier(
 ✅ 次は SHAP 解釈・アンサンブル化による安定性強化・スコア微増 段階へ移行可能
 
 </details>
+
+<details> <summary><strong>13_0630_notebook (0.8495)</strong></summary>
+📊 最適特徴量削除 + SHAP 解析による重要特徴量確定 + 安定化モデル（提出候補）
+
+✅ 概要
+11 モデル（RSA 系 + ASI + School 特徴量 + Optuna）構成を踏襲
+
+SHAP 解析により有効特徴量・不要特徴量を再整理
+
+不要特徴量を削除し、モデルのシンプル化・安定化を実現
+
+School_Drafted_Rate_TE にスムージング Target Encoding を適用し情報量確保＆リーク防止
+
+過去最高水準の Validation AUC を達成しつつ AUC 差も適度に抑制
+
+Public AUC 0.8495 を達成（0.85 目前）
+
+⚙️ モデル構成
+LightGBM（SHAP 解析で確定した有効特徴量 + 最適パラメータ）
+
+5-Fold Stratified CV + EarlyStopping(30)
+
+Validation AUC 最大化 + 安定性確保
+
+📈 評価結果（最終）
+指標 スコア
+Average Train AUC 0.9356
+Average Validation AUC 0.8495
+差分 0.0861
+
+✅ 過学習を抑えつつ高精度・安定性を維持し提出候補水準に到達
+
+✅ 特徴量
+使用特徴量：
+
+Age_filled, ASI, School_Drafted_Count, School_Drafted_Rate_TE (smoothed), Sprint_40yd, BMI, SpeedScore, AgilityScore, BurstScore, Position_encoded, Bench_Press_Reps, Year, Shuttle, Position_group_encoded
+
+削除した特徴量（SHAP/Feature Importance 解析に基づき無効・ノイズと判断）：
+
+Premium_Position, Test_Participation_Count, RSA_Sprint_40yd, Weight, Vertical_Jump, Broad_Jump, Height, School_Top など
+
+✅ モデルパラメータ（提出モデル）
+
+```python
+model = LGBMClassifier(
+    max_depth=8,
+    num_leaves=10,
+    min_child_samples=10,
+    reg_alpha=0.0415,
+    reg_lambda=0.2428,
+    learning_rate=0.0726,
+    n_estimators=1000,
+    subsample=0.6898,
+    colsample_bytree=0.7463,
+    random_state=42
+)
+```
+
+</details>
+
 ## 📁 プロジェクト構成
 
 <details>
+
 <summary>▼ クリックして展開</summary>
 
 ```
