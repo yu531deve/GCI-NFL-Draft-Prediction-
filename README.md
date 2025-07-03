@@ -540,6 +540,67 @@ Std を適度に上げる（分布を散らす）
 SHAP 解析で寄与度低い特徴量の再整理
 
 </details>
+<details> <summary><strong>16_0703_notebook (提出中)</strong></summary>
+📊 RSA / ASI / School特徴量構成維持 × Optuna重み最適化Votingモデル
+
+・09, 10 モデル（RSA 系 + ASI + School 特徴量 + LightGBM 最適化）を踏襲
+・Optuna により VotingClassifier (LGBM, CatBoost, XGBoost) の重み最適化 を実施
+・CatBoost / XGBoost 重視の重み配分で Public スコア最大化を狙う
+・Public 提出前の予測分布類似度分析で 09 モデルに極めて近い分布（L1 距離: 4.29）を確認済み
+
+⚙️ モデル構成
+
+・LightGBM / CatBoost / XGBoost による soft voting
+・Optuna 最適化後の重み設定：
+
+python
+コードをコピーする
+weights = [1.479, 4.943, 4.988] # [LGBM, CatBoost, XGBoost]
+・5-Fold Stratified CV + EarlyStopping(30)
+・Validation AUC に基づく最適化
+
+⚙️ 特徴量構成
+
+RSA 系特徴量 (Sprint_40yd, Vertical_Jump, Bench_Press_Reps, Shuttle, Agility_3cone)
+
+ASI (Athletic Score Index)
+
+School 特徴量 (Drafted Count, Drafted Rate, Top School Flag)
+
+Position_encoded, Position_group_encoded
+
+Age_filled, Age_missing
+
+BMI, SpeedScore, BurstScore, AgilityScore
+
+📈 評価結果（最終）
+
+・Average Train AUC：0.9851
+・Average Validation AUC：0.8446
+
+Fold 別：
+
+Fold 1: 0.8221
+
+Fold 2: 0.8716
+
+Fold 3: 0.8576
+
+Fold 4: 0.8225
+
+Fold 5: 0.8492
+
+✅ Public 提出時に 0.847〜0.849 程度を期待できる水準
+
+✅ 特徴・位置付け
+
+Optuna による Voting 重み最適化完了モデル
+
+RSA/ASI/School 特徴量の最適化構成維持
+
+Public 上位狙い提出用として完成形
+
+</details>
 
 ## 📁 プロジェクト構成
 
