@@ -419,6 +419,65 @@ model = LGBMClassifier(
 
 </details>
 
+<details> <summary><strong>14_0703_notebook (0.8538)</strong></summary>
+📊 School ドメイン知識 + RSA 系特徴量を活用し LightGBM による高精度モデル構築
+
+概要
+✅ 09 モデル（RSA 系 + ASI + School 特徴量）を踏襲しつつ、欠損処理順序を厳格化し安定性を向上
+✅ 不要特徴量削減は未実施、現状の全有効特徴量を使用
+✅ Optuna は使用せず、固定パラメータにより堅牢かつ安定した高水準モデルを構築
+✅ Age 欠損フラグの有効性を最大活用（欠損 vs 非欠損でドラフト率差 74.7%）
+
+⚙️ モデル構成
+LightGBM（RSA 系 + ASI + School 特徴量）
+
+パラメータは 09 構成を踏襲（Optuna 無し、固定）
+
+5-Fold CV + EarlyStopping(30)
+
+Validation AUC 最大化 + 過学習抑制
+
+```python
+model = LGBMClassifier(
+    max_depth=6,
+    num_leaves=10,
+    min_child_samples=38,
+    reg_alpha=8.18,
+    reg_lambda=8.07,
+    learning_rate=0.0442,
+    n_estimators=1000,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42
+)
+```
+
+📈 評価結果（最終）
+Average Train AUC：0.8980
+
+Average Validation AUC：0.8538
+
+差分：0.0442（安定した汎化性能と高スコアを両立）
+
+✅ 特筆事項
+Age 欠損処理の適正化で精度向上
+
+School 特徴量（Drafted Count, Drafted Rate, Top School フラグ）の fold-safe Target Encoding 適用
+
+RSA 特徴量・ASI 特徴量を維持活用
+
+Feature Importance 可視化により SpeedScore, Age_filled, School_Drafted_Rate_TE が最重要であることを確認
+
+次ステップ候補
+✅ 下位特徴量削減による精度向上余地の検証
+✅ SHAP 解析で特徴量の寄与方向性を可視化・分析
+✅ Public/Private スコア比較・ブレ抑制のための安定化微調整
+
+0.85 台を安定して記録可能な提出候補モデル完成。
+必要に応じて次回は特徴量削減・SHAP 解析・最終提出調整へ進行可能。
+
+</details>
+
 ## 📁 プロジェクト構成
 
 <details>
