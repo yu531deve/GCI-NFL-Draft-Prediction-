@@ -482,6 +482,65 @@ Feature Importance 可視化により SpeedScore, Age_filled, School_Drafted_Rat
 
 </details>
 
+<details> <summary><strong>15_0703_notebook (提出準備中)</strong></summary>
+📊 Optuna 最終調整・特徴量洗練による安定高精度モデル
+
+09/10 モデルの RSA 系・ASI・School 特徴量構成を維持しつつ、不要特徴量を段階的に削除
+
+SHAP 解析を用いリーク疑い・過剰寄与特徴量を削減
+
+Optuna (50 trials) により max_depth, num_leaves, min_child_samples, reg_alpha, reg_lambda, learning_rate を微調整
+
+最終的に分布を絞り精度向上を目指した結果、上振れの可能性が高いモデル構成を完成
+
+⚙️ モデル構成
+
+LightGBM（Optuna 微調整済）
+
+5-Fold Stratified CV + EarlyStopping(30)
+
+Validation AUC 最大化を重視
+
+Drafted 平均：0.637 （高スコアモデルに完全一致）
+
+Drafted 標準偏差：0.202（低め、過信モデル寄り）
+
+📈 評価結果（最終）
+
+Average Train AUC：0.89〜0.90
+
+Average Validation AUC：0.84 前後（Public 0.84 超えを狙う）
+
+✅ 最適化結果（Best Params）
+
+```python
+model = LGBMClassifier(
+    max_depth=4,
+    num_leaves=10,
+    min_child_samples=20,
+    reg_alpha=5.85,
+    reg_lambda=6.01,
+    learning_rate=0.027,
+    n_estimators=1000,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42
+)
+```
+
+🛠️ ポイント
+Drafted 分布の平均を過去高スコアモデルと揃えつつ、より確信度の高い予測を実現
+
+Optuna によるパラメータ微調整で汎化性能を最大化
+
+さらなるスコア向上が見込める場合は：
+
+Std を適度に上げる（分布を散らす）
+
+SHAP 解析で寄与度低い特徴量の再整理
+
+</details>
+
 ## 📁 プロジェクト構成
 
 <details>
