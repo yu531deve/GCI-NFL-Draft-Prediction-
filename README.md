@@ -360,7 +360,11 @@ model = LGBMClassifier(
 
 </details>
 
-<details> <summary><strong>13_0630_notebook (0.8495)</strong></summary>
+<details> <summary><strong>12_0629_notebook (0.82986)</strong></summary>
+
+</details>
+
+<details> <summary><strong>13_0630_notebook (0.8366)</strong></summary>
 📊 最適特徴量削除 + SHAP 解析による重要特徴量確定 + 安定化モデル（提出候補）
 
 ✅ 概要
@@ -419,7 +423,7 @@ model = LGBMClassifier(
 
 </details>
 
-<details> <summary><strong>14_0703_notebook (0.8538)</strong></summary>
+<details> <summary><strong>14_0703_notebook (提出中)</strong></summary>
 📊 School ドメイン知識 + RSA 系特徴量を活用し LightGBM による高精度モデル構築
 
 概要
