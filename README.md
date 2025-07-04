@@ -1,4 +1,5 @@
 このリポジトリは、Kaggle コンペ「NFL Draft Prediction」に関連するコード、ノートブック、提出ファイルをまとめたものです。
+0707まで
 
 ## 📁 notebook 目次
 
